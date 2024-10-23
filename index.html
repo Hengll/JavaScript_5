@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>兩色漸層顏色選擇器</title>
+    <style>
+        div {
+            border: 1px solid black;
+            width: 400px;
+            padding: 1rem;
+            position: relative;
+        }
+
+        #color-area {
+            border: 1px solid black;
+            margin: 1rem;
+            width: 200px;
+            height: 200px;
+            background: linear-gradient(90deg, rgb(0, 0, 0), rgb(0, 0, 0));
+        }
+
+        .color {
+            border: 1px solid black;
+            width: 1rem;
+            height: 1rem;
+            padding: 0;
+            position: absolute;
+            left: 5rem;
+            background: rgb(128, 128, 128);
+        }
+
+        span {
+            display: inline-block;
+            width: 2rem;
+        }
+
+        p {
+            margin: 0;
+        }
+
+        .rag {
+            width: 250px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="color-area"></div>
+    <div>
+        <div class="color"></div>
+        <p>顏色一</p>
+        <span>R:</span>
+        <input class="rag" type="range" min="0" max="255" value="0">
+        <span class="nums">0</span>
+        <input class="btns" type="button" value="隨機">
+        <span>G:</span>
+        <input class="rag" type="range" min="0" max="255" value="0">
+        <span class="nums">0</span>
+        <input class="btns" type="button" value="隨機">
+        <span>B:</span>
+        <input class="rag" type="range" min="0" max="255" value="0">
+        <span class="nums">0</span>
+        <input class="btns" type="button" value="隨機">
+    </div>
+    <div>
+        <div class="color"></div>
+        <p>顏色二</p>
+        <span>R:</span>
+        <input class="rag" type="range" min="0" max="255" value="0">
+        <span class="nums">0</span>
+        <input class="btns" type="button" value="隨機">
+        <span>G:</span>
+        <input class="rag" type="range" min="0" max="255" value="0">
+        <span class="nums">0</span>
+        <input class="btns" type="button" value="隨機">
+        <span>B:</span>
+        <input class="rag" type="range" min="0" max="255" value="0">
+        <span class="nums">0</span>
+        <input class="btns" type="button" value="隨機">
+    </div>
+    <div>
+        <p>漸層角度</p>
+        <span></span>
+        <input class="rag" type="range" min="-360" max="360" value="90">
+        <span class="nums">90</span>
+    </div>
+    <script>
+        const rand = (min, max) => {
+            return Math.floor(Math.random() * (max - min + 1)) + min
+        }
+
+        const div = document.getElementById('color-area')
+        const inputs = document.getElementsByClassName('rag')
+        const spanNums = document.getElementsByClassName('nums')
+        const btns = document.getElementsByClassName('btns')
+        const color = document.getElementsByClassName('color')
+
+        for (let i = 0; i < inputs.length; i++) {
+            inputs[i].addEventListener('input', () => {
+                spanNums[i].innerText = `${inputs[i].value}`
+                div.style.background = `linear-gradient(${inputs[6].value}deg,
+                    rgb(${inputs[0].value},${inputs[1].value},${inputs[2].value}), 
+                    rgb(${inputs[3].value},${inputs[4].value},${inputs[5].value})`;
+
+                color[0].style.background = `rgb(${inputs[0].value},${inputs[1].value},${inputs[2].value})`;
+                color[1].style.background = `rgb(${inputs[3].value},${inputs[4].value},${inputs[5].value})`;
+            })
+
+            btns[i]?.addEventListener('click', () => {
+                inputs[i].value = `${rand(0, 255)}`
+                spanNums[i].innerText = `${inputs[i].value}`
+                div.style.background = `linear-gradient(${inputs[6].value}deg,
+                    rgb(${inputs[0].value},${inputs[1].value},${inputs[2].value}), 
+                    rgb(${inputs[3].value},${inputs[4].value},${inputs[5].value})`;
+
+                color[0].style.background = `rgb(${inputs[0].value},${inputs[1].value},${inputs[2].value})`;
+                color[1].style.background = `rgb(${inputs[3].value},${inputs[4].value},${inputs[5].value})`;
+            })
+        }
+    </script>
+</body>
+
+</html>
